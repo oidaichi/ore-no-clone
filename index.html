@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="icon" href="images/logo_oreno_clone03_favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIクローン動画サービス | みねふじこ株式会社</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1A4B8C;
+            --primary-light: #2D6FD2;
+            --primary-dark: #0E3366;
+            --accent: #FF5722;
+            --accent-light: #FF7A50;
+            --accent-dark: #E64A19;
+            --success: #2E7D32;
+            --light: #F5F7FA;
+            --dark: #1A202C;
+            --gray: #64748B;
+            --gray-light: #E2E8F0;
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+            --shadow-md: 0 6px 12px rgba(0,0,0,0.08), 0 3px 6px rgba(0,0,0,0.04);
+            --shadow-lg: 0 12px 20px rgba(0,0,0,0.1), 0 5px 10px rgba(0,0,0,0.04);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 12px;
+        }
+
+        /* Base Styles */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--dark);
+            line-height: 1.7;
+            background-color: var(--light);
+            overflow-x: hidden;
+            font-weight: 300;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        img {
+            max-width: 100%;
+        }
+
+        /* Container */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 500;
+            transition: var(--transition);
+            cursor: pointer;
+            border: none;
+            font-family: 'Noto Sans JP', sans-serif;
+            letter-spacing: 0.02em;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 14px rgba(26, 75, 140, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(26, 75, 140, 0.35);
+        }
+
+        .btn-primary:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-primary:hover:before {
+            left: 100%;
+        }
+
+        .btn-accent {
+            background: var(--accent);
+            color: white;
+            box-shadow: 0 4px 14px rgba(255, 87, 34, 0.3);
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            font-size: 1.1rem;
+            padding: 16px 34px;
+            letter-spacing: 0.03em;
+        }
+
+        .btn-accent:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 87, 34, 0.35);
+        }
+        
+        .btn-accent:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+            z-index: -1;
+        }
+
+        .btn-accent:hover:before {
+            left: 100%;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--primary-light);
+            color: var(--primary);
+        }
+
+        .btn-outline:hover {
+            background: var(--primary-light);
+            color: white;
+        }
+
+        .btn-lg {
+            padding: 14px 32px;
+            font-size: 1rem;
+        }
+
+        .btn i {
+            margin-left: 8px;
+        }
+
+        /* Header */
+        .header {
+            background-color: white;
+            box-shadow: var(--shadow-sm);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 15px 0;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+
+        .logo-icon {
+            margin-right: 10px;
+            font-size: 1.6rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 120px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #1A4B8C 0%, #2D6FD2 100%);
+            color: white;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M10 10L90 10M10 90L90 90" stroke="%23FFFFFF" stroke-opacity="0.06" stroke-width="1"/></svg>');
+            background-repeat: repeat;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-size: 3.6rem;
+            font-weight: 700;
+            margin-bottom: 24px;
+            color: white;
+            line-height: 1.2;
+            letter-spacing: -0.01em;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-cta {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 60px;
+        }
+
+        /* Question Flow */
+        .question-flow {
+            padding: 100px 0;
+            background-color: #F0F7FF;
+            background-image: linear-gradient(135deg, rgba(26, 75, 140, 0.03) 25%, transparent 25%), 
+                              linear-gradient(225deg, rgba(26, 75, 140, 0.03) 25%, transparent 25%), 
+                              linear-gradient(45deg, rgba(26, 75, 140, 0.03) 25%, transparent 25%), 
+                              linear-gradient(315deg, rgba(26, 75, 140, 0.03) 25%, #F0F7FF 25%);
+            background-position: 40px 0, 40px 0, 0 0, 0 0;
+            background-size: 80px 80px;
+            background-repeat: repeat;
+        }
+
+        .section-title {
+            font-size: 2.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--primary);
+            text-align: center;
+            letter-spacing: -0.01em;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 60px;
+            text-align: center;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+            color: var(--gray);
+        }
+
+        .question-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .question-box {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+            margin-bottom: 30px;
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.5s ease forwards;
+            border-top: 4px solid var(--accent);
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .question-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--primary);
+            text-align: center;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .question-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .options-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .options-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .option-button {
+            background: white;
+            border: 1px solid var(--gray-light);
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: var(--dark);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .option-button:hover {
+            border-color: var(--primary-light);
+            background: var(--light);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .option-icon {
+            color: var(--primary);
+            margin-right: 15px;
+            font-size: 1.4rem;
+            flex-shrink: 0;
+        }
+
+        .back-button {
+            background: transparent;
+            border: none;
+            color: var(--gray);
+            font-weight: 400;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px auto 0;
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px 16px;
+        }
+
+        .back-button:hover {
+            color: var(--primary);
+        }
+
+        .back-icon {
+            margin-right: 8px;
+        }
+
+        /* Progress Indicator */
+        .progress-container {
+            margin-bottom: 30px;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .progress-steps::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gray-light);
+            z-index: 0;
+        }
+
+        .progress-bar {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 2px;
+            background: var(--primary);
+            z-index: 1;
+            transition: width 0.3s ease;
+        }
+
+        .progress-step {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: white;
+            border: 2px solid var(--gray-light);
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 500;
+            color: var(--gray);
+            font-size: 0.8rem;
+            transition: var(--transition);
+        }
+
+        .progress-step.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .progress-step.completed {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        /* Content Display */
+        .content-display {
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 40px;
+        }
+
+        .content-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--primary);
+        }
+
+        .content-image {
+            width: 100%;
+            max-width: 600px;
+            display: block;
+            margin: 0 auto 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+        }
+
+        .content-text {
+            margin-bottom: 30px;
+        }
+
+        .feature-list {
+            margin: 30px 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .feature-icon {
+            color: var(--success);
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 5px;
+        }
+
+        .testimonial {
+            background: var(--light);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin: 30px 0;
+            position: relative;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: 500;
+        }
+
+        .testimonial-company {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .testimonial::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            font-size: 5rem;
+            color: var(--primary);
+            opacity: 0.1;
+            line-height: 1;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+            justify-content: center;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            padding: 100px 0;
+            background: linear-gradient(135deg, #F0F4F8 0%, #D8E6F3 100%);
+            display: none;
+        }
+
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-lg);
+            padding: 50px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-input,
+        .form-textarea {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid var(--gray-light);
+            border-radius: 8px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus,
+        .form-textarea:focus {
+            border-color: var(--primary-light);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(44, 95, 138, 0.1);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
+        }
+
+        .footer-bottom {
+            text-align: center;
+        }
+
+        .copyright {
+            color: #A0AEC0;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 150px 0 100px;
+            }
+
+            .hero-title {
+                font-size: 2.4rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: center;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .question-box {
+                padding: 30px 20px;
+            }
+
+            .form-container {
+                padding: 30px 20px;
+            }
+        }
+
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<script src="js/main.js"></script>
+<body>
+	<!-- header ロゴ部分を画像に置き換え -->
+	<header class="header">
+	  <div class="container header-container">
+	    <a href="#" class="logo">
+	      <img src="images/logo_oreno_clone02.png" alt="俺のクローン ロゴ" class="logo-image">
+                 俺のクローン
+	    </a>
+	    <button class="btn btn-primary" onclick="handleContactForm()">無料相談</button>
+	  </div>
+	</header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-content">
+            <h1 class="hero-title">あなたの分身が24時間働く</h1>
+            <!-- ここを置き換え -->
+            <p class="hero-subtitle">
+                ✓ 撮影時間を90%削減<br>
+                ✓ 動画大量生産<br>
+                ✓ パーソナライズ強化
+            </p>
+            <div class="hero-cta">
+                <div class="video-container">
+	        <video
+				  controls
+				  autoplay
+				  muted
+				  loop
+				  playsinline
+				  style="
+				    max-width: 100%;
+				    border-radius: var(--radius);
+				    box-shadow: var(--shadow-md);
+				  "
+				>
+				  <source src="videos/クローンSNS見本.mp4" type="video/mp4">
+				  お使いのブラウザでは動画が再生できません。
+				</video>
+      </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Question Flow Section -->
+	<section class="question-flow" id="questions">
+	  <div class="container">
+	    <div class="question-container">
+
+	      <!-- Q1 -->
+	      <div class="question-box" id="q1">
+	        <h3 class="question-title">お困りごとに合ったAIクローン動画をご覧ください</h3>
+	        <div class="options-grid">
+	          <button class="option-button" onclick="handleQuestion('q2-a', 1)">
+	            集客や販促に使いたいけど、どこで使えば…？
+	          </button>
+	          <button class="option-button" onclick="handleQuestion('q2-b', 1)">
+	            社内研修やマニュアルを動画で伝えたい
+	          </button>
+	          <button class="option-button" onclick="handleQuestion('q2-c', 1)">
+	            採用説明や企業PRに動画を使いたい
+	          </button>
+	          <button class="option-button" onclick="handleQuestion('q2-d', 1)">
+	            何から始めたらいいか分からない
+	          </button>
+	        </div>
+	      </div>
+
+	      <!-- Q2-A -->
+	      <div class="question-box hidden" id="q2-a">
+	        <h3 class="question-title">興味のあるチャネルは？</h3>
+	        <div class="options-grid">
+	          <button class="option-button" onclick="handleContent('mail')">
+	            メルマガ／メール
+	          </button>
+	          <button class="option-button" onclick="handleContent('sns')">
+	            Twitter・Instagram
+	          </button>
+	          <button class="option-button" onclick="handleContent('web')">
+	            HP／YouTube
+	          </button>
+	        </div>
+	        <button class="btn btn-outline" onclick="handleContactForm()">タダで相談する</button>
+	        <button class="back-button" onclick="handleQuestion('q1', 0)">
+	          <i class="fas fa-arrow-left back-icon"></i> 前の質問に戻る
+	        </button>
+	      </div>
+
+	      <!-- Q2-B -->
+	      <div class="question-box hidden" id="q2-b">
+	        <h3 class="question-title">社内研修やマニュアルを動画で伝えたい</h3>
+	        <div class="options-grid">
+	          <button class="option-button" onclick="handleContent('training')">
+	            社内研修動画
+	          </button>
+	        </div>
+	        <button class="btn btn-outline" onclick="handleContactForm()">タダで相談する</button>
+	        <button class="back-button" onclick="handleQuestion('q1', 0)">
+	          <i class="fas fa-arrow-left back-icon"></i> 前の質問に戻る
+	        </button>
+	      </div>
+
+	      <!-- Q2-C -->
+	      <div class="question-box hidden" id="q2-c">
+	        <h3 class="question-title">採用説明や企業PRに動画を使いたい</h3>
+	        <div class="options-grid">
+	          <button class="option-button" onclick="handleContent('recruit')">
+	            採用PR動画
+	          </button>
+	        </div>
+	        <button class="btn btn-outline" onclick="handleContactForm()">タダで相談する</button>
+	        <button class="back-button" onclick="handleQuestion('q1', 0)">
+	          <i class="fas fa-arrow-left back-icon"></i> 前の質問に戻る
+	        </button>
+	      </div>
+
+	      <!-- Q2-D -->
+	      <div class="question-box hidden" id="q2-d">
+	        <h3 class="question-title">何から始めたらいいか分からない</h3>
+	        <div class="options-grid">
+	          <button class="option-button" onclick="handleContent('guide')">
+	            「AIクローン活用ガイド動画」を見る
+	          </button>
+	        </div>
+	        <button class="btn btn-outline" onclick="handleContactForm()">タダで相談する</button>
+	        <button class="back-button" onclick="handleQuestion('q1', 0)">
+	          <i class="fas fa-arrow-left back-icon"></i> 前の質問に戻る
+	        </button>
+	      </div>
+
+	      <!-- Content Display ( unchanged ) -->
+	      <div class="question-box content-display hidden" id="content-display">
+	        <h3 class="question-title" id="content-title"></h3>
+	        <div id="content-body"></div>
+	        <div class="cta-buttons">
+	          <button class="btn btn-accent" onclick="handleContactForm()">タダで相談する</button>
+	          <button class="btn btn-outline" onclick="handleQuestion('q1', 0)">最初に戻る</button>
+	        </div>
+	      </div>
+
+	    </div>
+	  </div>
+	</section>
+
+
+    <!-- Contact Form -->
+    <section class="contact-form" id="contact-form">
+        <div class="container">
+            <div class="form-container">
+                <h2 class="section-title">無料相談・お問い合わせ</h2>
+                <p class="section-subtitle">AIクローン活用のご相談をお受けします</p>
+                
+                <form id="inquiry-form">
+                    <div class="form-group">
+                        <label class="form-label" for="company">会社名</label>
+                        <input type="text" id="company" name="company" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="name">お名前</label>
+                        <input type="text" id="name" name="name" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="email">メールアドレス</label>
+                        <input type="email" id="email" name="email" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="phone">電話番号</label>
+                        <input type="tel" id="phone" name="phone" class="form-input">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="message">ご相談内容</label>
+                        <textarea id="message" name="message" class="form-textarea" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-accent btn-lg" style="width: 100%;">無料で相談する</button>
+                </form>
+                
+                <div class="text-center" style="margin-top: 20px;">
+			        <button 
+			          type="button" 
+			          class="back-button" 
+			          onclick="
+			            /* フォームを隠す */
+			            document.getElementById('contact-form').style.display = 'none';
+			            /* 質問フローを再表示 */
+			            document.getElementById('questions').style.display = 'block';
+			            /* Q1 をアクティブに */
+			            handleQuestion('q1', 0);
+			            /* ページ内スクロール（任意）*/
+			            document.getElementById('q1').scrollIntoView({ behavior: 'smooth' });
+			          ">
+			          <i class="fas fa-arrow-left back-icon"></i> 最初の質問に戻る
+			        </button>
+			      </div>
+                
+              </div>
+		  </div>
+		</section>
+                
+                
+      	<!-- Footer Links -->
+	<div class="footer-links text-center">
+	  <a href="http://www.minefujiko.jp/company.html">会社概要</a>｜ 
+	  <a href="http://www.minefujiko.jp/tokutei.html">特定商取引法に基づく表記</a>｜ 
+	  <a href="http://www.minefujiko.jp/privacy.html">プライバシーポリシー</a>
+	</div>
+
+	<!-- Footer Bottom -->
+	<div class="footer-bottom">
+	  <p class=".copyright">
+	    Copyright © 2025 株式会社みねふじこ All Rights Reserved.
+	  </p>
+	</div>
