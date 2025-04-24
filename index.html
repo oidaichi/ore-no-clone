@@ -675,7 +675,7 @@
                 ✓ 動画大量生産<br>
                 ✓ パーソナライズ強化
             </p>
-            <div class="hero-cta">
+            <!--<div class="hero-cta">
                 <div class="video-container">
 	        <video
 				  controls
@@ -691,7 +691,7 @@
 				>
 				  <source src="videos/クローンSNS見本.mp4" type="video/mp4">
 				  お使いのブラウザでは動画が再生できません。
-				</video>
+				</video> -->
       </div>
             </div>
         </div>
@@ -706,6 +706,7 @@
 	      <!-- Q1 -->
 	      <div class="question-box" id="q1">
 	        <h3 class="question-title">お困りごとに合ったAIクローン動画をご覧ください</h3>
+	        
 	        <div class="options-grid">
 	          <button class="option-button" onclick="handleQuestion('q2-a', 1)">
 	            集客や販促に使いたいけど、どこで使えば…？
@@ -791,6 +792,21 @@
 	      <div class="question-box content-display hidden" id="content-display">
 	        <h3 class="question-title" id="content-title"></h3>
 	        <div id="content-body"></div>
+	        
+	        	<div class="content-video" style="text-align:center; margin-bottom:20px;">
+				    <video
+				      controls
+				      autoplay
+				      muted
+				      loop
+				      playsinline
+				      style="max-width:100%; border-radius:var(--radius); box-shadow:var(--shadow-md);"
+				    >
+				      <source src="videos/クローンSNS見本.mp4" type="video/mp4">
+				      お使いのブラウザでは動画が再生できません。
+				    </video>
+				  </div>
+	        
 	        <div class="cta-buttons">
 	          <button class="btn btn-accent" onclick="handleContactForm()">無料で相談する</button>
 	          <button class="btn btn-outline" onclick="handleQuestion('q1', 0)">最初に戻る</button>
