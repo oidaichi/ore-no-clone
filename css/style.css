@@ -80,8 +80,8 @@
     position: relative;
     overflow: hidden;
     z-index: 1;
-    font-size: 1.1rem;
-    padding: 16px 34px;
+    font-size: 1rem;
+    padding: 12px 28px;
     letter-spacing: 0.03em;
   }
   .btn-accent:hover { background: var(--accent-dark); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255, 87, 34, 0.35); }
@@ -98,9 +98,15 @@
   
   .btn-outline { background: transparent; border: 2px solid var(--primary-light); color: var(--primary); }
   .btn-outline:hover { background: var(--primary-light); color: white; }
-  .btn-lg { padding: 14px 32px; font-size: 1rem; }
+  .btn-lg { padding: 12px 28px; font-size: 1rem; }
   .btn i { margin-left: 8px; }
   
+  /* Question ボックス内のアウトラインボタンを中央寄せ */
+	.question-box .btn-outline {
+	  display: block;
+	  margin: 30px auto 0;
+	}
+
   /* Header */
   .header {
     background-color: white;
@@ -245,7 +251,7 @@
   .hidden { display: none; }
   
 	/* Hero CTA の ASK ボタンを強調 */
-	.hero-cta .btn-accent {
+	/*.hero-cta .btn-accent {
 	  animation: pulse 2s infinite;
 	}
 
@@ -260,3 +266,4 @@
 	    box-shadow: 0 0 0 0 rgba(255, 87, 34, 0);
 	  }
 	}
+*/
